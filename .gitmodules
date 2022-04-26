@@ -1,0 +1,9 @@
+[submodule "Assets/LevelManager"]
+	path = Assets/LevelManager
+	url = git@github.com:Spiky-Games/LevelManager.git
+[submodule "Assets/UserDataManager"]
+	path = Assets/UserDataManager
+	url = git@github.com:Spiky-Games/UserDataManager.git
+[submodule "Assets/EventSystemManager"]
+	path = Assets/EventSystemManager
+	url = git@github.com:Spiky-Games/EventSystemManager.git
