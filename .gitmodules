@@ -10,3 +10,6 @@
 [submodule "EasyDebugSystem"]
 	path = EasyDebugSystem
 	url = git@github.com:Spiky-Games/EasyDebugSystem.git
+[submodule "UpdateService"]
+	path = UpdateService
+	url = git@github.com:Spiky-Games/UpdateService.git
