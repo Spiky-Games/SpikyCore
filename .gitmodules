@@ -19,3 +19,6 @@
 [submodule "PremadeCameras"]
 	path = PremadeCameras
 	url = git@github.com:Spiky-Games/PremadeCameras.git
+[submodule "InputManager"]
+	path = InputManager
+	url = git@github.com:Spiky-Games/InputManager.git
