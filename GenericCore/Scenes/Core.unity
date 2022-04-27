@@ -423,6 +423,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: GenericSpikyCore
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 54943092046338297, guid: f04ac34ae7a331c4eb762af5febff31a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f04ac34ae7a331c4eb762af5febff31a, type: 3}

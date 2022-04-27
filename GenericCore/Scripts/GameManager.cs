@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using EventSystem;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -20,22 +21,32 @@ public class GameManager : MonoBehaviour
         this.StartLevel();
     }
 
-    private void OnDestroy()
-    {
-        this.Unbind();
-    }
-
     private void Bind()
     {
         DefaultGameEventSystemManager.Instance.GameEventSystem.AddEventListener<ForceReloadLevelEvent>(this.ForceReloadLevelEventHandler);
+        DefaultGameEventSystemManager.Instance.GameEventSystem.AddEventListener<FailedPopupClosedEvent>(this.FailedPopupClosedEventHandler);
+        DefaultGameEventSystemManager.Instance.GameEventSystem.AddEventListener<SuccessPopupClosedEvent>(this.SuccessPopupClosedEventHandler);
     }
 
-    private void Unbind()
+    public void OpenSuccessPopup()
     {
-        if (DefaultGameEventSystemManager.Instance != null)
-        {
-            DefaultGameEventSystemManager.Instance.GameEventSystem.RemoveEventListener<ForceReloadLevelEvent>(this.ForceReloadLevelEventHandler);
-        }
+        UIService.Instance.OpenPopup(PopupType.LevelCompletePopup);
+    }
+
+    public void OpenFailedPopup()
+    {
+        UIService.Instance.OpenPopup(PopupType.LevelFailPopup);
+    }
+
+    private void SuccessPopupClosedEventHandler(SuccessPopupClosedEvent successPopupClosedEvent)
+    {
+        DefaultGameEventSystemManager.Instance.GameEventSystem.Dispatch(new ForceOverrideUserLevelEvent(1));
+        DefaultGameEventSystemManager.Instance.GameEventSystem.Dispatch(new ForceReloadLevelEvent());
+    }
+
+    private void FailedPopupClosedEventHandler(FailedPopupClosedEvent failedPopupClosedEvent)
+    {
+        DefaultGameEventSystemManager.Instance.GameEventSystem.Dispatch(new ForceReloadLevelEvent());
     }
 
     private void ForceReloadLevelEventHandler(ForceReloadLevelEvent forceReloadLevelEvent)
@@ -45,11 +56,25 @@ public class GameManager : MonoBehaviour
 
     private void StartLevel()
     {
-        //this.LoadCurrentLevel();
+        UIService.Instance.OnFadeOutCompleted += this.OnFadeOutPreLoadCurrentLevelCompleted;
+        UIService.Instance.StartFadeOut();
+    }
+
+    private void OnFadeOutPreLoadCurrentLevelCompleted()
+    {
+        UIService.Instance.OnFadeOutCompleted -= this.OnFadeOutPreLoadCurrentLevelCompleted;
+        this.LoadCurrentLevel();
     }
 
     private void LoadCurrentLevel()
     {
+        UIService.Instance.OnFadeInCompleted += this.OnFadeOutLoadCompletedHandler;
+        UIService.Instance.StartFadeIn();
+    }
+
+    private void OnFadeOutLoadCompletedHandler()
+    {
+        UIService.Instance.OnFadeInCompleted -= this.OnFadeOutLoadCompletedHandler;
         LevelDefinition levelDefinition = DefaultLevelManager.Instance.LoadLevel(DefaultUserManager.Instance.UserData.CurrentLevel);
         SceneManager.LoadScene(levelDefinition.sceneToLoad.name);
     }

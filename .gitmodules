@@ -13,3 +13,6 @@
 [submodule "UpdateService"]
 	path = UpdateService
 	url = git@github.com:Spiky-Games/UpdateService.git
+[submodule "UIService"]
+	path = UIService
+	url = git@github.com:Spiky-Games/UIService.git
