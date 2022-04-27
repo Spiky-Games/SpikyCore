@@ -16,3 +16,6 @@
 [submodule "UIService"]
 	path = UIService
 	url = git@github.com:Spiky-Games/UIService.git
+[submodule "PremadeCameras"]
+	path = PremadeCameras
+	url = git@github.com:Spiky-Games/PremadeCameras.git
