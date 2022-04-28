@@ -1,6 +1,5 @@
 ﻿using EventSystem;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +8,8 @@ public class GameManager : MonoBehaviour
         get;
         set;
     }
+
+    private IStartStrategy startStrategy;
 
     private void Awake()
     {
@@ -69,12 +70,12 @@ public class GameManager : MonoBehaviour
     {
         UIService.Instance.OnFadeInCompleted -= this.LoadCurrentLevel;
         LevelDefinition levelDefinition = DefaultLevelManager.Instance.LoadLevel(DefaultUserManager.Instance.UserData.CurrentLevel);
-        SceneManager.LoadScene(levelDefinition.sceneToLoad.name);
-        AsyncOperation asyncOp = SceneManager.LoadSceneAsync(levelDefinition.sceneToLoad.name);
-        asyncOp.completed += this.OnSceneLoadingFinished;
+        this.startStrategy = new StartSceneLoadStrategy(levelDefinition.sceneToLoad);
+        this.startStrategy.Load();
+        this.startStrategy.OnLoadFinished += this.OnSceneLoadingFinished;
     }
 
-    private void OnSceneLoadingFinished(AsyncOperation obj)
+    private void OnSceneLoadingFinished()
     {
         UIService.Instance.StartFadeOut();
     }
