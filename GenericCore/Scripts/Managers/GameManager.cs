@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoadingFinished()
     {
+        this.startStrategy.OnLoadFinished -= this.OnSceneLoadingFinished;
         UIService.Instance.StartFadeOut();
     }
 }
