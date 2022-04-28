@@ -305,6 +305,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: GenericSpikyCore
       objectReference: {fileID: 0}
+    - target: {fileID: 4595967896979816271, guid: f04ac34ae7a331c4eb762af5febff31a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4595967896979816271, guid: f04ac34ae7a331c4eb762af5febff31a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4595967896979816271, guid: f04ac34ae7a331c4eb762af5febff31a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f04ac34ae7a331c4eb762af5febff31a, type: 3}
 --- !u!1001 &790405365542700769
