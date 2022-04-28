@@ -51,31 +51,31 @@ public class GameManager : MonoBehaviour
 
     private void ForceReloadLevelEventHandler(ForceReloadLevelEvent forceReloadLevelEvent)
     {
-        this.LoadCurrentLevel();
+        this.FadeInAndLoadLevel();
     }
 
     private void StartLevel()
     {
-        UIService.Instance.OnFadeOutCompleted += this.OnFadeOutPreLoadCurrentLevelCompleted;
-        UIService.Instance.StartFadeOut();
+        this.LoadCurrentLevel();
     }
 
-    private void OnFadeOutPreLoadCurrentLevelCompleted()
+    private void FadeInAndLoadLevel()
     {
-        UIService.Instance.OnFadeOutCompleted -= this.OnFadeOutPreLoadCurrentLevelCompleted;
-        this.LoadCurrentLevel();
+        UIService.Instance.StartFadeIn();
+        UIService.Instance.OnFadeInCompleted += this.LoadCurrentLevel;
     }
 
     private void LoadCurrentLevel()
     {
-        UIService.Instance.OnFadeInCompleted += this.OnFadeOutLoadCompletedHandler;
-        UIService.Instance.StartFadeIn();
-    }
-
-    private void OnFadeOutLoadCompletedHandler()
-    {
-        UIService.Instance.OnFadeInCompleted -= this.OnFadeOutLoadCompletedHandler;
+        UIService.Instance.OnFadeInCompleted -= this.LoadCurrentLevel;
         LevelDefinition levelDefinition = DefaultLevelManager.Instance.LoadLevel(DefaultUserManager.Instance.UserData.CurrentLevel);
         SceneManager.LoadScene(levelDefinition.sceneToLoad.name);
+        AsyncOperation asyncOp = SceneManager.LoadSceneAsync(levelDefinition.sceneToLoad.name);
+        asyncOp.completed += this.OnSceneLoadingFinished;
+    }
+
+    private void OnSceneLoadingFinished(AsyncOperation obj)
+    {
+        UIService.Instance.StartFadeOut();
     }
 }
