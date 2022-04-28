@@ -5,7 +5,7 @@ public class InitialSetupTool : EditorWindow
 {
     private const string COMPANY_NAME = "spiky";
 
-    [MenuItem("Tools/Initial Setup")]
+    [MenuItem("Spiky Tools/Initial Setup")]
     private static void StartInitialSetupTool()
     {
         PlayerSettings.companyName = COMPANY_NAME;

@@ -7,7 +7,7 @@ public class ReplaceWithPrefab : EditorWindow
     [SerializeField] private GameObject prefab;
 
     // -- this creates the menu to open the "Replace With Prefab" window
-    [MenuItem("Tools/Replace With Prefab")]
+    [MenuItem("Spiky Tools/Replace With Prefab")]
     static void CreateReplaceWithPrefab()
     {
         EditorWindow.GetWindow<ReplaceWithPrefab>();
