@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526af02fe2438e048aef6cb3ed74d676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelLoaderScriptable: {fileID: 11400000, guid: f9f0d3b9a43e79a46b9b8923477d4a93,
+  levelLoaderScriptable: {fileID: 11400000, guid: 7457f18e975212b4098f852907d5ebbd,
     type: 2}
 --- !u!114 &54943091916546274
 MonoBehaviour:
