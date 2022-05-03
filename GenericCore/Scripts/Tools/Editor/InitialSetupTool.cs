@@ -15,6 +15,8 @@ public class InitialSetupTool : EditorWindow
         PlayerSettings.allowedAutorotateToLandscapeRight = false;
         PlayerSettings.allowedAutorotateToLandscapeLeft = false;
         PlayerSettings.gpuSkinning = true;
+        PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel24;
+        PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevel30;
 
         PlayerSettings.SplashScreenLogo[] logos = new PlayerSettings.SplashScreenLogo[1];
         Sprite companyLogo = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/SpikyCore/GenericCore/Art/Spiky_Games_Logo.png", typeof(Sprite));
