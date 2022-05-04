@@ -7,16 +7,16 @@ public class StartSceneLoadStrategy : IStartStrategy
 {
     public event Action OnLoadFinished;
 
-    private SceneAsset assetScene;
+    private string sceneName;
 
-    public StartSceneLoadStrategy(SceneAsset assetScene)
+    public StartSceneLoadStrategy(string sceneName)
     {
-        this.assetScene = assetScene;
+        this.sceneName = sceneName;
     }
 
     public void Load()
     {
-        AsyncOperation asyncOp = SceneManager.LoadSceneAsync(this.assetScene.name);
+        AsyncOperation asyncOp = SceneManager.LoadSceneAsync(this.sceneName);
         asyncOp.completed += this.OnSceneLoadingFinishedHandler;
     }
 
