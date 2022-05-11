@@ -31,12 +31,12 @@ public class GameManager : MonoBehaviour
 
     public void OpenSuccessPopup()
     {
-        UIService.Instance.OpenPopup(PopupType.LevelCompletePopup);
+        UIService.Instance.OpenPopup("LevelCompletePopup");
     }
 
     public void OpenFailedPopup()
     {
-        UIService.Instance.OpenPopup(PopupType.LevelFailPopup);
+        UIService.Instance.OpenPopup("LevelFailPopup");
     }
 
     private void SuccessPopupClosedEventHandler(SuccessPopupClosedEvent successPopupClosedEvent)
