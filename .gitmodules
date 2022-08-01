@@ -1,9 +1,6 @@
 [submodule "LevelManager"]
 	path = LevelManager
 	url = git@github.com:Spiky-Games/LevelManager.git
-[submodule "UserDataManager"]
-	path = UserDataManager
-	url = git@github.com:Spiky-Games/UserDataManager.git
 [submodule "EventSystemManager"]
 	path = EventSystemManager
 	url = git@github.com:Spiky-Games/EventSystemManager.git

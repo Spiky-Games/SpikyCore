@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private const string CURRENT_LEVEL_KEY = "CurrentLevel";
+
+    public int CurrentLevel
+    {
+        get { return PlayerPrefs.GetInt(CURRENT_LEVEL_KEY, 0); }
+        set { PlayerPrefs.SetInt(CURRENT_LEVEL_KEY, value); }
+    }
+
     public static GameManager Instance
     {
         get;
@@ -25,9 +33,24 @@ public class GameManager : MonoBehaviour
 
     private void Bind()
     {
+        DefaultGameEventSystemManager.Instance.GameEventSystem.AddEventListener<LevelCompletedEvent>(this.OnLevelCompletedEventHandler);
+        DefaultGameEventSystemManager.Instance.GameEventSystem.AddEventListener<ForceOverrideUserLevelEvent>(this.OnForceOverrideUserLevelEventHandler);
         DefaultGameEventSystemManager.Instance.GameEventSystem.AddEventListener<ForceReloadLevelEvent>(this.ForceReloadLevelEventHandler);
         DefaultGameEventSystemManager.Instance.GameEventSystem.AddEventListener<FailedPopupClosedEvent>(this.FailedPopupClosedEventHandler);
         DefaultGameEventSystemManager.Instance.GameEventSystem.AddEventListener<SuccessPopupClosedEvent>(this.SuccessPopupClosedEventHandler);
+    }
+
+    private void OnForceOverrideUserLevelEventHandler(ForceOverrideUserLevelEvent forceOverrideUserLevelEvent)
+    {
+        int newLevel = this.CurrentLevel;
+        newLevel += forceOverrideUserLevelEvent.LevelsToModify;
+        newLevel = Mathf.Max(0, newLevel);
+        this.CurrentLevel = newLevel;
+    }
+
+    private void OnLevelCompletedEventHandler(LevelCompletedEvent levelCompletedEvent)
+    {
+        this.CurrentLevel++;
     }
 
     public void OpenSuccessPopup()
@@ -70,7 +93,7 @@ public class GameManager : MonoBehaviour
     private void LoadCurrentLevel()
     {
         UIService.Instance.OnFadeInCompleted -= this.LoadCurrentLevel;
-        LevelDefinition levelDefinition = DefaultLevelManager.Instance.LoadLevel(DefaultUserManager.Instance.UserData.CurrentLevel);
+        LevelDefinition levelDefinition = DefaultLevelManager.Instance.LoadLevel(this.CurrentLevel);
         this.startStrategy = new StartSceneLoadStrategy(levelDefinition.sceneToLoad);
         this.startStrategy.Load();
         this.startStrategy.OnLoadFinished += this.OnSceneLoadingFinished;
