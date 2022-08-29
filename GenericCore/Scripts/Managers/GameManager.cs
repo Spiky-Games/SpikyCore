@@ -25,13 +25,13 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
     }
 
-    public void Start()
+    protected virtual void Start()
     {
         this.Bind();
         this.StartLevel();
     }
 
-    private void Bind()
+    protected void Bind()
     {
         DefaultGameEventSystemManager.Instance.GameEventSystem.AddEventListener<LevelCompletedEvent>(this.OnLevelCompletedEventHandler);
         DefaultGameEventSystemManager.Instance.GameEventSystem.AddEventListener<ForceOverrideUserLevelEvent>(this.OnForceOverrideUserLevelEventHandler);
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         this.FadeInAndLoadLevel();
     }
 
-    private void StartLevel()
+    protected void StartLevel()
     {
         this.LoadCurrentLevel();
     }
