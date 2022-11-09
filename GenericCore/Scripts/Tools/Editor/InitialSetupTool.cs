@@ -12,6 +12,7 @@ public class InitialSetupTool : EditorWindow
         PlayerSettings.accelerometerFrequency = 0;
         PlayerSettings.applicationIdentifier = "";
         PlayerSettings.SetApiCompatibilityLevel(BuildTargetGroup.iOS, ApiCompatibilityLevel.NET_4_6);
+        PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
         PlayerSettings.allowedAutorotateToLandscapeRight = false;
         PlayerSettings.allowedAutorotateToLandscapeLeft = false;
         PlayerSettings.gpuSkinning = true;
