@@ -131,5 +131,11 @@ static class SceneAutoLoader
 		get => GetString(cEditorPrefPreviousScene, EditorSceneManager.GetActiveScene().path);
 		set => SetString(cEditorPrefPreviousScene, value);
 	}
+
+	public static void SetMasterScene(string relativeScenePath)
+	{
+		MasterScene = relativeScenePath;
+		LoadMasterOnPlay = true;
+	}
 }
 #endif
