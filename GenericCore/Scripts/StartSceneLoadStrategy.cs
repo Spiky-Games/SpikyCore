@@ -18,10 +18,8 @@ public class StartSceneLoadStrategy : IStartStrategy
 
     public void Load()
     {
-        UpdateService.Instance.ExecuteActionAfterSeconds(6, () => {
-            asOP = SceneManager.LoadSceneAsync(this.sceneName);
-            asOP.completed += this.OnSceneLoadingFinishedHandler;
-        });
+        asOP = SceneManager.LoadSceneAsync(this.sceneName);
+        asOP.completed += this.OnSceneLoadingFinishedHandler;
     }
 
     private void OnSceneLoadingFinishedHandler(AsyncOperation op)
