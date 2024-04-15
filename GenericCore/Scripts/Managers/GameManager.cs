@@ -1,8 +1,11 @@
 ﻿using EventSystem;
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public event Action OnLevelLoad;
+
     private const string CURRENT_LEVEL_KEY = "CurrentLevel";
 
     public int CurrentLevel
@@ -17,7 +20,7 @@ public class GameManager : MonoBehaviour
         set;
     }
 
-    private IStartStrategy startStrategy;
+    public IStartStrategy startStrategy;
 
     private void Awake()
     {
@@ -101,6 +104,7 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoadingFinished()
     {
+        OnLevelLoad?.Invoke();
         this.startStrategy.OnLoadFinished -= this.OnSceneLoadingFinished;
         UIService.Instance.StartFadeOut();
     }

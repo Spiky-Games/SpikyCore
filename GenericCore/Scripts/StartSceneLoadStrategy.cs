@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class StartSceneLoadStrategy : IStartStrategy
 {
+    public float Progress => asOP != null ? asOP.progress : 0;
+
     public event Action OnLoadFinished;
 
     private string sceneName;
-
+    AsyncOperation asOP;
     public StartSceneLoadStrategy(string sceneName)
     {
         this.sceneName = sceneName;
@@ -16,8 +18,10 @@ public class StartSceneLoadStrategy : IStartStrategy
 
     public void Load()
     {
-        AsyncOperation asyncOp = SceneManager.LoadSceneAsync(this.sceneName);
-        asyncOp.completed += this.OnSceneLoadingFinishedHandler;
+        UpdateService.Instance.ExecuteActionAfterSeconds(6, () => {
+            asOP = SceneManager.LoadSceneAsync(this.sceneName);
+            asOP.completed += this.OnSceneLoadingFinishedHandler;
+        });
     }
 
     private void OnSceneLoadingFinishedHandler(AsyncOperation op)
